@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>නව නිපැයුම් සංගමය - ඔන්ලයින් සාප්පුව</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ff9e00;
+            --danger: #e63946;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* හෙඩර් ශෛලීකරණය */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* ප්‍රධාන අන්තර්ගතය */
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.8) 0%, rgba(58, 12, 163, 0.8) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(247, 37, 133, 0.6);
+        }
+        
+        /* කොටස් */
+        .section {
+            background: white;
+            padding: 80px 30px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section h2:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        /* පාදකය */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #000 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* Statistics Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Products Section */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--secondary);
+        }
+        
+        .wishlist {
+            background: transparent;
+            color: var(--dark);
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .wishlist:hover {
+            background: #f8f9fa;
+            color: var(--accent);
+        }
+        
+        /* Login Form */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+        
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .login-form:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .login-form h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .user-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            display: none;
+            z-index: 100;
+        }
+        
+        .user-menu.active {
+            display: block;
+        }
+        
+        .user-menu-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .user-menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .user-menu-item:hover {
+            color: var(--primary);
+        }
+        
+        /* Shopping Cart */
+        .cart-icon {
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Cart Page */
+        .cart-container {
+            margin-top: 100px;
+            padding: 20px;
+        }
+        
+        .cart-items {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .remove-item {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .remove-item:hover {
+            background: #c1121f;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .summary-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Profile Page */
+        .profile-container {
+            margin-top: 100px;
+            padding: 20px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-right: 20px;
+        }
+        
+        .profile-info h2 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            color: #666;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .detail-group {
+            margin-bottom: 20px;
+        }
+        
+        .detail-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .detail-group .form-control {
+            background: #f8f9fa;
+        }
+        
+        .save-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .save-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Orders Page */
+        .orders-container {
+            margin-top: 100px;
+            padding: 20px;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .order-id {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .order-date {
+            color: #666;
+        }
+        
+        .order-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-delivered {
+            background: #e7f7ef;
+            color: #0a8754;
+        }
+        
+        .status-pending {
+            background: #fff4e6;
+            color: #e67700;
+        }
+        
+        .status-shipped {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .order-items {
+            margin-bottom: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .order-item-details {
+            flex: 1;
+        }
+        
+        .order-item-title {
+            font-weight: 500;
+        }
+        
+        .order-item-price {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .order-total {
+            text-align: right;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* ඇනිමේෂන් */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, -0px); }
+        }
+        
+        /* ප්‍රතිචාරශීලී සැකසුම */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 50px 20px;
+            }
+            
+            .features, .stats, .testimonials, .products {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-profile {
+                margin-left: 10px;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-image {
+                margin-bottom: 15px;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .order-status {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ප්‍රධාන වෙබ් අඩවිය -->
+    <div id="main-site">
+        <header id="main-header">
+            <div class="container">
+                <nav>
+                    <div class="logo">
+                        <i class="fas fa-lightbulb"></i> නව නිපැයුම් සංගමය
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="products">Products</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                        <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    </ul>
+                    <div style="display: flex; align-items: center;">
+                        <div class="cart-icon" id="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </div>
+                        <div class="user-profile">
+                            <div class="user-avatar" id="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-menu" id="user-menu">
+                                <div class="user-menu-item" id="login-btn">Log In</div>
+                                <div class="user-menu-item" id="register-btn">Register</div>
+                                <div class="user-menu-item" id="profile-btn" style="display: none;">My Profile</div>
+                                <div class="user-menu-item" id="orders-btn" style="display: none;">My Orders</div>
+                                <div class="user-menu-item" id="logout-btn" style="display: none;">Log Out</div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Home Page -->
+        <div class="page active" id="home-page">
+            <div class="hero">
+                <video autoplay muted loop class="video-background">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-white-light-technology-background-39814-large.mp4" type="video/mp4">
+                    ඔබගේ බ්‍රවුසරය වීඩියෝ අනුබල නොදක්වයි.
+                </video>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>නව නිපැයුම් සංගමයේ ඔන්ලයින් සාප්පුව</h1>
+                    <p>සිසුන්ගේ නිර්මාණශීලී නිපැයුම් මිලදී ගන්න</p>
+                    <a href="#" class="btn nav-link" data-page="products" style="margin-top: 20px;">දැන් මිලදී ගන්න</a>
+                </div>
+            </div>
+            
+            <div class="container">
+                <!-- නිෂ්පාදන කොටස -->
+                <div class="section">
+                    <h2>අපගේ නිෂ්පාදන</h2>
+                    <p>සිසුන්ගේ නිර්මාණශීලීත්වයෙන් පිරි නව නිපැයුම්</p>
+                    
+                    <div class="products">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">සූර්ය බලයෙන් ක්‍රියාත්මක වන ජල පිරිසිදු කිරීමේ යන්ත්‍රය</h3>
+                                <p class="product-description">සූර්ය බලය භාවිතා කරමින් ජලය පිරිසිදු කිරීමේ නව නිපැයුම</p>
+                                <div class="product-price">රු. 15,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ප්ලාස්ටික් ප්‍රතිචක්‍රීකරණ යන්ත්‍රය</h3>
+                                <p class="product-description">ප්ලාස්ටික් බෝතල් නැවත භාවිතා කළ හැකි ද්‍රව්‍ය බවට පත් කිරීමේ යන්ත්‍රය</p>
+                                <div class="product-price">රු. 25,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <a href="#" class="btn nav-link" data-page="products">සියලුම නිෂ්පාදන බලන්න</a>
+                    </div>
+                </div>
+
+                <!-- හැඳින්වීමේ කොටස -->
+                <div class="section">
+                    <h2>අපගේ සංගමයට සාදරයෙන් පිළිගනිමු</h2>
+                    <p>පාසල් නව නිපැයුම් සංගමය විද්‍යාත්මක අධ්‍යයනය සහ නව නිපැයුම් සඳහා කැපවී සිටින සිසුන්ගේ කණ්ඩායමකි. අපගේ අරමුණ වන්නේ නව අදහස් බිහි කිරීම සහ ඒවා ප්‍රායෝගික විසඳුම් බවට පත් කිරීමයි.</p>
+                    
+                    <div class="features">
+                        <div class="feature-card floating">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>නව අදහස්</h3>
+                            <p>සිසුන්ගේ නිර්මාණශීලී චින්තනය සහ නව නිපැයුම් කුසලතා වර්ධනය කිරීම</p>
+                        </div>
+                        <div class="feature-card floating" style="animation-delay: 0.5s;">
+                            <i class="fas fa-flask"></i>
+                            <h3>පර්යේෂණ</h3>
+                            <p>තාක්ෂණික දැනුම වර්ධනය කිරීම සහ ප්‍රායෝගික ගැටළු විසඳීමට හැකියාව ලබා දීම</p>
+                        </div>
+                        <div class="feature-card floating" style="animation-delay: 1s;">
+                            <i class="fas fa-trophy"></i>
+                            <h3>සාර්ථකත්වය</h3>
+                            <p>ප්‍රාදේශීය සහ ජාතික තරඟවලදී අපගේ සාමාජිකයින්ගේ ජයග්‍රහණ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- සංඛ්‍යාලේඛන කොටස -->
+                <div class="section">
+                    <h2>අපගේ සාර්ථකත්වය</h2>
+                    <p>පසුගිය වසර කිහිපය තුළ අපගේ සංගමය ජයග්‍රහණ රැසක් ලබාගෙන ඇත</p>
+                    
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">නිපැයුම්</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">තරඟ ජයග්‍රහණ</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">සක්‍රීය සාමාජිකයින්</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">සිදුවීම්</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div class="page" id="products-page">
+            <div class="container" style="margin-top: 100px;">
+                <div class="section">
+                    <h2>සියලුම නිෂ්පාදන</h2>
+                    <p>සිසුන්ගේ නිර්මාණශීලීත්වයෙන් පිරි නව නිපැයුම්</p>
+                    
+                    <div class="products">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">සූර්ය බලයෙන් ක්‍රියාත්මක වන ජල පිරිසිදු කිරීමේ යන්ත්‍රය</h3>
+                                <p class="product-description">සූර්ය බලය භාවිතා කරමින් ජලය පිරිසිදු කිරීමේ නව නිපැයුම</p>
+                                <div class="product-price">රු. 15,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ප්ලාස්ටික් ප්‍රතිචක්‍රීකරණ යන්ත්‍රය</h3>
+                                <p class="product-description">ප්ලාස්ටික් බෝතල් නැවත භාවිතා කළ හැකි ද්‍රව්‍ය බවට පත් කිරීමේ යන්ත්‍රය</p>
+                                <div class="product-price">රු. 25,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ස්මාර්ට් ජල සම්පාදන පද්ධතිය</h3>
+                                <p class="product-description">තෙතමනය අනුව ස්වයංක්‍රීයව ජල සම්පාදනය කරන පද්ධතිය</p>
+                                <div class="product-price">රු. 12,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">කුඩා පරිමාණයේ සුළං බල උත්පාදක යන්ත්‍රය</h3>
+                                <p class="product-description">ගෘහාශ්‍රිත භාවිතය සඳහා කුඩා පරිමාණයේ සුළං බල උත්පාදක යන්ත්‍රය</p>
+                                <div class="product-price">රු. 18,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ස්මාර්ට් අපද්‍රව්‍ය කළමනාකරණ පද්ධතිය</h3>
+                                <p class="product-description">ස්වයංක්‍රීයව අපද්‍රව්‍ය වර්ගීකරණය කරන පද්ධතිය</p>
+                                <div class="product-price">රු. 30,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">වර්ෂා ජල එකතු කිරීමේ පද්ධතිය</h3>
+                                <p class="product-description">වර්ෂා ජලය කාර්යක්ෂමව එකතු කර භාවිතා කිරීමේ පද්ධතිය</p>
+                                <div class="product-price">රු. 22,000</div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">කරත්තයට එක් කරන්න</button>
+                                    <button class="wishlist"><i class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about-page">
+            <div class="container" style="margin-top: 100px;">
+                <div class="section">
+                    <h2>අප ගැන</h2>
+                    <p>පාසල් නව නිපැයුම් සංගමය ගැන වැඩිදුර තොරතුරු</p>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <i class="fas fa-history"></i>
+                            <h3>අපගේ ඉතිහාසය</h3>
+                            <p>2020 වර්ෂයේදී ආරම්භ කරන ලද අපගේ සංගමය, පසුගිය වසර කිහිපය තුළ නිපැයුම් 50කට වැඩි ගණනක් නිපදවා ඇත.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-bullseye"></i>
+                            <h3>අපගේ අරමුණ</h3>
+                            <p>සිසුන්ගේ නිර්මාණශීලීත්වය සහ නව නිපැයුම් කුසලතා වර්ධනය කිරීම අපගේ මූලික අරමුණයි.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-users"></i>
+                            <h3>අපගේ කණ්ඩායම</h3>
+                            <p>විවිධ ශ්‍රේණිවල සිසුන්ගෙන් සමන්විත අපගේ කණ්ඩායම, නව නිපැයුම් සඳහා කැපවී සිටී.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 40px;">
+                        <h3>සාමාජික අදහස්</h3>
+                        <div class="testimonials">
+                            <div class="testimonial-card">
+                                <p class="testimonial-text">මෙම සංගමය හරහා මට මගේ නිපැයුම් කුසලතා වර්ධනය කරගැනීමට හැකියාව ලැබුණා. පසුගිය වසරේ මගේ නිපැයුම ජාතික තරඟයකදී ප්‍රථම ස්ථානය දිනාගත්තේය.</p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">ස</div>
+                                    <div class="author-info">
+                                        <h4>සනේන්ද්‍ර පෙරේරා</h4>
+                                        <p>11 ශ්‍රේණිය, සාමාජිකයා</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card">
+                                <p class="testimonial-text">නව නිපැයුම් සංගමය මගේ ජීවිතය වෙනස් කළා. මෙහිදී මට නව මිතුරන් හමුවීමට, නව අදහස් ඉගෙනීමට සහ මගේ නිපැයුම් ක්‍රියාත්මක කිරීමට හැකියාව ලැබුණා.</p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">ම</div>
+                                    <div class="author-info">
+                                        <h4>මහේෂානි සිල්වා</h4>
+                                        <p>10 ශ්‍රේණිය, සාමාජිකාව</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact-page">
+            <div class="container" style="margin-top: 100px;">
+                <div class="section">
+                    <h2>අපව සම්බන්ධ කරගන්න</h2>
+                    <p>ඔබට අප ගැන වැඩිදුර තොරතුරු අවශ්‍ය නම් හෝ අප හා සම්බන්ධ වීමට අවශ්‍ය නම්, පහත තොරතුරු භාවිතා කරන්න</p>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>ලිපිනය</h3>
+                            <p>පාසල් නව නිපැයුම් සංගමය<br>පාසල් මාර්ගය<br>කොළඹ 07</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-phone"></i>
+                            <h3>දුරකථන අංකය</h3>
+                            <p>+94 11 234 5678<br>+94 77 123 4567</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3>විද්‍යුත් තැපෑල</h3>
+                            <p>info@novationsamaya.lk<br>support@novationsamaya.lk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div class="page" id="cart-page">
+            <div class="container cart-container">
+                <h2>මගේ කරත්තය</h2>
+                
+                <div class="cart-items">
+                    <h3>කරත්තයේ ඇති භාණ්ඩ</h3>
+                    <div id="cart-items-list">
+                        <!-- Cart items will be dynamically added here -->
+                        <div class="empty-cart-message" style="text-align: center; padding: 40px; color: #666;">
+                            <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <p>ඔබගේ කරත්තය හිස් ය</p>
+                            <a href="#" class="btn nav-link" data-page="products" style="margin-top: 20px;">නිෂ්පාදන බලන්න</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <h3>ඇණවුම් සාරාංශය</h3>
+                    <div class="summary-row">
+                        <span>භාණ්ඩවල මුළු මිල:</span>
+                        <span id="subtotal">රු. 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>ප්‍රවාහන ගාස්තු:</span>
+                        <span id="shipping">රු. 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>මුළු මිල:</span>
+                        <span class="summary-total" id="total">රු. 0</span>
+                    </div>
+                    <button class="checkout-btn" id="checkout-btn">මිලදී ගැනීම අවසන් කරන්න</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profile-page">
+            <div class="container profile-container">
+                <h2>මගේ පැතිකඩ</h2>
+                
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profile-name">පරිශීලක නාමය</h2>
+                            <p id="profile-email">user@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <label for="full-name">සම්පූර්ණ නම</label>
+                            <input type="text" id="full-name" class="form-control" value="පරිශීලක නාමය">
+                        </div>
+                        <div class="detail-group">
+                            <label for="email">විද්‍යුත් තැපෑල</label>
+                            <input type="email" id="email" class="form-control" value="user@example.com">
+                        </div>
+                        <div class="detail-group">
+                            <label for="phone">දුරකථන අංකය</label>
+                            <input type="tel" id="phone" class="form-control" value="+94 77 123 4567">
+                        </div>
+                        <div class="detail-group">
+                            <label for="address">ලිපිනය</label>
+                            <textarea id="address" class="form-control" rows="3">පාසල් මාර්ගය, කොළඹ 07</textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 30px;">
+                        <button class="save-btn" id="save-profile">සුරකින්න</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Page -->
+        <div class="page" id="orders-page">
+            <div class="container orders-container">
+                <h2>මගේ ඇණවුම්</h2>
+                
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">ඇණවුම් අංකය: #ORD-001</div>
+                            <div class="order-date">2023-10-15</div>
+                        </div>
+                        <div class="order-status status-delivered">බෙදාහැරී ඇත</div>
+                    </div>
+                    
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="order-item-image">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <div class="order-item-details">
+                                <div class="order-item-title">සූර්ය බලයෙන් ක්‍රියාත්මක වන ජල පිරිසිදු කිරීමේ යන්ත්‍රය</div>
+                                <div class="order-item-price">රු. 15,000</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-total">මුළු මිල: රු. 15,000</div>
+                </div>
+                
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">ඇණවුම් අංකය: #ORD-002</div>
+                            <div class="order-date">2023-10-10</div>
+                        </div>
+                        <div class="order-status status-shipped">යවන ලදී</div>
+                    </div>
+                    
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="order-item-image">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="order-item-details">
+                                <div class="order-item-title">ප්ලාස්ටික් ප්‍රතිචක්‍රීකරණ යන්ත්‍රය</div>
+                                <div class="order-item-price">රු. 25,000</div>
+                            </div>
+                        </div>
+                        <div class="order-item">
+                            <div class="order-item-image">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="order-item-details">
+                                <div class="order-item-title">ස්මාර්ට් ජල සම්පාදන පද්ධතිය</div>
+                                <div class="order-item-price">රු. 12,000</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-total">මුළු මිල: රු. 37,000</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="page" id="login-page">
+            <div class="login-container">
+                <div class="login-form">
+                    <h2>ලොගින් වන්න</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">පරිශීලක නාමය</label>
+                            <input type="text" id="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">මුරපදය</label>
+                            <input type="password" id="password" class="form-control" required>
+                        </div>
+                        <div class="form-options">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">මතක තබා ගන්න</label>
+                            </div>
+                            <a href="#" class="forgot-password">මුරපදය අමතක වුණාද?</a>
+                        </div>
+                        <button type="submit" class="login-btn">ලොගින් වන්න</button>
+                    </form>
+                    <div class="register-link">
+                        ගිණුමක් නැතිද? <a href="#" id="show-register">ලියාපදිංචි වන්න</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+                    <i class="fas fa-lightbulb"></i> නව නිපැයුම් සංගමය
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p>&copy; 2023 පාසල් නව නිපැයුම් සංගමය. සියලුම හිමිකම් ඇවිරිණි.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Page Navigation
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page') + '-page';
+                showPage(pageId);
+            });
+        });
+        
+        // User Menu Toggle
+        const userAvatar = document.getElementById('user-avatar');
+        const userMenu = document.getElementById('user-menu');
+        
+        if(userAvatar && userMenu) {
+            userAvatar.addEventListener('click', () => {
+                userMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userAvatar.contains(e.target) && !userMenu.contains(e.target)) {
+                    userMenu.classList.remove('active');
+                }
+            });
+        }
+        
+        // Login/Register Functionality
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const profileBtn = document.getElementById('profile-btn');
+        const ordersBtn = document.getElementById('orders-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const showRegister = document.getElementById('show-register');
+        const loginForm = document.getElementById('loginForm');
+        const cartIcon = document.getElementById('cart-icon');
+        
+        if(loginBtn) {
+            loginBtn.addEventListener('click', () => {
+                showPage('login-page');
+                userMenu.classList.remove('active');
+            });
+        }
+        
+        if(registerBtn) {
+            registerBtn.addEventListener('click', () => {
+                // Here you would switch to register form
+                alert('ලියාපදිංචි පෝරමය මෙතැන දිස්වනු ඇත');
+                userMenu.classList.remove('active');
+            });
+        }
+        
+        if(profileBtn) {
+            profileBtn.addEventListener('click', () => {
+                showPage('profile-page');
+                userMenu.classList.remove('active');
+            });
+        }
+        
+        if(ordersBtn) {
+            ordersBtn.addEventListener('click', () => {
+                showPage('orders-page');
+                userMenu.classList.remove('active');
+            });
+        }
+        
+        if(logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                // Reset user state
+                document.getElementById('profile-btn').style.display = 'none';
+                document.getElementById('orders-btn').style.display = 'none';
+                document.getElementById('logout-btn').style.display = 'none';
+                document.getElementById('login-btn').style.display = 'block';
+                document.getElementById('register-btn').style.display = 'block';
+                
+                // Clear cart
+                cartItems = [];
+                updateCart();
+                
+                // Show home page
+                showPage('home-page');
+                userMenu.classList.remove('active');
+                alert('ලොග් අවුට් වීම සාර්ථකයි!');
+            });
+        }
+        
+        if(cartIcon) {
+            cartIcon.addEventListener('click', () => {
+                showPage('cart-page');
+            });
+        }
+        
+        if(showRegister) {
+            showRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Here you would switch to register form
+                alert('ලියාපදිංචි පෝරමය මෙතැන දිස්වනු ඇත');
+            });
+        }
+        
+        if(loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Simple login simulation
+                if(username && password) {
+                    alert('ලොගින් වීම සාර්ථකයි!');
+                    showPage('home-page');
+                    
+                    // Update user menu
+                    document.getElementById('profile-btn').style.display = 'block';
+                    document.getElementById('orders-btn').style.display = 'block';
+                    document.getElementById('logout-btn').style.display = 'block';
+                    document.getElementById('login-btn').style.display = 'none';
+                    document.getElementById('register-btn').style.display = 'none';
+                    
+                    // Update profile
+                    document.getElementById('profile-name').textContent = username;
+                    document.getElementById('profile-email').textContent = username + '@example.com';
+                } else {
+                    alert('කරුණාකර පරිශීලක නාමය සහ මුරපදය ඇතුළත් කරන්න');
+                }
+            });
+        }
+        
+        // Cart Functionality
+        let cartItems = [];
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsList = document.getElementById('cart-items-list');
+        const subtotalElement = document.getElementById('subtotal');
+        const shippingElement = document.getElementById('shipping');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        function updateCart() {
+            // Update cart count
+            cartCount.textContent = cartItems.length;
+            
+            // Update cart items list
+            if (cartItems.length === 0) {
+                cartItemsList.innerHTML = `
+                    <div class="empty-cart-message" style="text-align: center; padding: 40px; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>ඔබගේ කරත්තය හිස් ය</p>
+                        <a href="#" class="btn nav-link" data-page="products" style="margin-top: 20px;">නිෂ්පාදන බලන්න</a>
+                    </div>
+                `;
+                
+                // Add event listener to the new button
+                const newButton = cartItemsList.querySelector('.nav-link');
+                if (newButton) {
+                    newButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showPage('products-page');
+                    });
+                }
+            } else {
+                let cartHTML = '';
+                let subtotal = 0;
+                
+                cartItems.forEach((item, index) => {
+                    subtotal += item.price;
+                    cartHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-image">
+                                <i class="${item.icon}"></i>
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">රු. ${item.price.toLocaleString()}</div>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn" onclick="decreaseQuantity(${index})">-</button>
+                                    <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                                    <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart(${index})">ඉවත් කරන්න</button>
+                        </div>
+                    `;
+                });
+                
+                cartItemsList.innerHTML = cartHTML;
+                
+                // Calculate totals
+                const shipping = subtotal > 0 ? 500 : 0;
+                const total = subtotal + shipping;
+                
+                subtotalElement.textContent = `රු. ${subtotal.toLocaleString()}`;
+                shippingElement.textContent = `රු. ${shipping.toLocaleString()}`;
+                totalElement.textContent = `රු. ${total.toLocaleString()}`;
+            }
+        }
+        
+        function addToCart(title, price, icon) {
+            const existingItem = cartItems.find(item => item.title === title);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartItems.push({
+                    title: title,
+                    price: price,
+                    icon: icon,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            alert('නිෂ්පාදනය කරත්තයට එක් කරන ලදී');
+        }
+        
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCart();
+        }
+        
+        function increaseQuantity(index) {
+            cartItems[index].quantity += 1;
+            updateCart();
+        }
+        
+        function decreaseQuantity(index) {
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity -= 1;
+            } else {
+                removeFromCart(index);
+            }
+            updateCart();
+        }
+        
+        // Make functions available globally
+        window.addToCart = addToCart;
+        window.removeFromCart = removeFromCart;
+        window.increaseQuantity = increaseQuantity;
+        window.decreaseQuantity = decreaseQuantity;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productCard = button.closest('.product-card');
+                const title = productCard.querySelector('.product-title').textContent;
+                const priceText = productCard.querySelector('.product-price').textContent;
+                const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                const icon = productCard.querySelector('.product-image i').className;
+                
+                addToCart(title, price, icon);
+            });
+        });
+        
+        if(checkoutBtn) {
+            checkoutBtn.addEventListener('click', () => {
+                if (cartItems.length === 0) {
+                    alert('කරුණාකර කරත්තයට භාණ්ඩ එක් කරන්න');
+                } else {
+                    alert('මිලදී ගැනීම සාර්ථකව සම්පූර්ණ විය!');
+                    cartItems = [];
+                    updateCart();
+                    showPage('home-page');
+                }
+            });
+        }
+        
+        // Wishlist Functionality
+        const wishlistButtons = document.querySelectorAll('.wishlist');
+        
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const icon = button.querySelector('i');
+                if(icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = 'var(--accent)';
+                    alert('නිෂ්පාදනය අභිමත ලැයිස්තුවට එක් කරන ලදී');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                    alert('නිෂ්පාදනය අභිමත ලැයිස්තුවෙන් ඉවත් කරන ලදී');
+                }
+            });
+        });
+        
+        // Save Profile
+        const saveProfileBtn = document.getElementById('save-profile');
+        if(saveProfileBtn) {
+            saveProfileBtn.addEventListener('click', () => {
+                alert('පැතිකඩ තොරතුරු සුරකින ලදී');
+            });
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Statistics animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + '+';
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + '+';
+                    }
+                }, 50);
+            });
+        }
+        
+        // Initialize
+        updateCart();
+        
+        // Animate stats when they come into view
+        const statsSection = document.querySelector('.stats');
+        if(statsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
